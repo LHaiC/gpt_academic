@@ -78,7 +78,7 @@ claude_endpoint = "https://api.anthropic.com/v1/messages"
 cohere_endpoint = "https://api.cohere.ai/v1/chat"
 ollama_endpoint = "http://localhost:11434/api/chat"
 yimodel_endpoint = "https://api.lingyiwanwu.com/v1/chat/completions"
-deepseekapi_endpoint = "https://api.deepseek.com/v1/chat/completions"
+deepseekapi_endpoint = "https://api.siliconflow.cn/v1/chat/completions"
 grok_model_endpoint = "https://api.x.ai/v1/chat/completions"
 volcengine_endpoint = "https://ark.cn-beijing.volces.com/api/v3/chat/completions"
 
@@ -1093,7 +1093,7 @@ if "deepseekcoder" in AVAIL_LLM_MODELS:   # deepseekcoder
         logger.error(trimmed_format_exc())
 
 # -=-=-=-=-=-=- 幻方-深度求索大模型在线API -=-=-=-=-=-=-
-claude_models = ["deepseek-chat", "deepseek-coder", "deepseek-reasoner"]
+claude_models = ["deepseek-chat", "deepseek-coder", "deepseek-reasoner", "deepseek-ai/DeepSeek-R1", "deepseek-ai/DeepSeek-V3"]
 if any(item in claude_models for item in AVAIL_LLM_MODELS):
     try:
         deepseekapi_noui, deepseekapi_ui = get_predict_function(
@@ -1119,6 +1119,26 @@ if any(item in claude_models for item in AVAIL_LLM_MODELS):
                 "token_cnt": get_token_num_gpt35,
             },
             "deepseek-reasoner":{
+                "fn_with_ui": deepseekapi_ui,
+                "fn_without_ui": deepseekapi_noui,
+                "endpoint": deepseekapi_endpoint,
+                "can_multi_thread": True,
+                "max_token": 64000,
+                "tokenizer": tokenizer_gpt35,
+                "token_cnt": get_token_num_gpt35,
+                "enable_reasoning": True
+            },
+            "deepseek-ai/DeepSeek-R1":{
+                "fn_with_ui": deepseekapi_ui,
+                "fn_without_ui": deepseekapi_noui,
+                "endpoint": deepseekapi_endpoint,
+                "can_multi_thread": True,
+                "max_token": 64000,
+                "tokenizer": tokenizer_gpt35,
+                "token_cnt": get_token_num_gpt35,
+                "enable_reasoning": True
+            },
+            "deepseek-ai/DeepSeek-V3":{
                 "fn_with_ui": deepseekapi_ui,
                 "fn_without_ui": deepseekapi_noui,
                 "endpoint": deepseekapi_endpoint,
